@@ -1,11 +1,15 @@
-import Navigation from "./Navigation";
+import Navigation from "./Navigation"; // Import Navigation component
 
-// This component wraps every page with shared layout (e.g. navigation)
-export default function Layout({ children }) {
+const Layout = ({ children }) => {
   return (
-    <>
-      <Navigation /> {/* Appears on all pages */}
-      <main>{children}</main> {/* Page-specific content */}
-    </>
+    <div>
+      <header>
+        <Navigation /> {/* Include the Navigation bar */}
+      </header>
+      <main>{children}</main>{" "}
+      {/* Page-specific content will be rendered here */}
+    </div>
   );
-}
+};
+
+export default Layout;

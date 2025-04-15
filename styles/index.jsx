@@ -12,6 +12,15 @@ const GlobalStyle = createGlobalStyle`
   h1 {
     text-align: center;
   }
+
+  button {
+    font-family: inherit;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    outline: none;
+  }
 `;
 
 export default GlobalStyle;
