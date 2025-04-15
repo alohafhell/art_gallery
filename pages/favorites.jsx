@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FavoriteButton from "@/components/FavoriteButton";
+
 export default function FavoritesPage({ favorites, onToggleFavorite }) {
   const [allArt, setAllArt] = useState([]);
 

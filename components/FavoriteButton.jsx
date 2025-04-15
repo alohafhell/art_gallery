@@ -1,5 +1,5 @@
 import React from "react";
-import { Heart, HeartOff } from "lucide-react"; // Import the heart icons from Lucide React
+import { Heart } from "lucide-react"; // Import the heart icons from Lucide React
 
 export default function FavoriteButton({ isFavorite, onToggle }) {
   return (
