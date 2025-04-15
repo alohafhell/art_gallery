@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import FavoriteButton from "./FavoriteButton";
 
 // Styled container for the spotlight art piece
 const SpotlightWrapper = styled.section`
@@ -25,8 +26,9 @@ function getRandomArtPiece(pieces) {
   return pieces[randomIndex];
 }
 
-export default function Spotlight() {
+export default function Spotlight({ favorites, onToggleFavorite }) {
   const [artPiece, setArtPiece] = useState(null);
+  const [loading, setLoading] = useState(true); // Added loading state for more control
 
   useEffect(() => {
     async function fetchArtPieces() {
@@ -34,11 +36,13 @@ export default function Spotlight() {
         const res = await fetch("https://example-apis.vercel.app/api/art");
         const data = await res.json();
 
-        // ✅ Use MDN-style random selection
+        // Use MDN-style random selection
         const randomPiece = getRandomArtPiece(data);
         setArtPiece(randomPiece);
+        setLoading(false); // Set loading to false when data is fetched
       } catch (error) {
         console.error("Failed to fetch art for spotlight:", error);
+        setLoading(false); // Set loading to false in case of error
       }
     }
 
@@ -46,16 +50,27 @@ export default function Spotlight() {
   }, []);
 
   // While loading
-  if (!artPiece) return <p>Loading spotlight...</p>;
+  if (loading) return <p>Loading spotlight...</p>;
+
+  const isFavorite =
+    Array.isArray(favorites) && favorites.includes(artPiece.slug);
 
   // Show selected random piece
   return (
     <SpotlightWrapper>
-      <h2>Spotlight Art Piece</h2>
+      <h2> Spotlight Art Piece</h2>
       <Image src={artPiece.imageSource} alt={artPiece.name} />
       <p>
         <strong>By:</strong> {artPiece.artist}
       </p>
+      <FavoriteButton
+        isFavorite={isFavorite}
+        onToggle={() => onToggleFavorite(artPiece.slug)}
+      />
     </SpotlightWrapper>
   );
 }
+
+Spotlight.defaultProps = {
+  favorites: [], // Default to empty array
+};

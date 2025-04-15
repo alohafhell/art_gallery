@@ -25,9 +25,9 @@ const StyledLink = styled(Link)`
 
 export default function Navigation() {
   return (
-    <Nav>
-      <StyledLink href="/spotlight">Spotlight</StyledLink>
-      <StyledLink href="/gallery">Gallery</StyledLink>
-    </Nav>
+    <nav>
+      <Link href="/">Spotlight</Link> |<Link href="/gallery">Gallery</Link> |
+      <Link href="/favorites">Favorites</Link>
+    </nav>
   );
 }

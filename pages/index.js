@@ -1,12 +1,10 @@
-import Spotlight from "../components/Spotlight"; // Import spotlight component
-import ArtGallery from "../components/ArtGallery";
+import Spotlight from "../components/Spotlight";
 
-export default function HomePage() {
+export default function HomePage({ favorites, onToggleFavorite }) {
   return (
     <div>
       <h1>Art Gallery</h1>
-      <Spotlight /> {/* ✅ Show the spotlight section */}
-      <ArtGallery /> {/* ✅ Show the full gallery below it */}
+      <Spotlight favorites={favorites} onToggleFavorite={onToggleFavorite} />
     </div>
   );
 }
