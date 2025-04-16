@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import FavoriteButton from "@/components/FavoriteButton";
+import styled from "styled-components";
 
 export default function FavoritesPage({ favorites, onToggleFavorite }) {
   const [allArt, setAllArt] = useState([]);
@@ -22,9 +23,13 @@ export default function FavoritesPage({ favorites, onToggleFavorite }) {
     favorites.includes(art.slug)
   );
 
+  const CenteredTitle = styled.h1`
+    text-align: center;
+  `;
+
   return (
     <div>
-      <h2>Favorite Art Pieces</h2>
+      <CenteredTitle>Art Gallery</CenteredTitle>
       {favoriteArtPieces.length > 0 ? (
         <ul>
           {favoriteArtPieces.map((art) => (

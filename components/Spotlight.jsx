@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import FavoriteButton from "./FavoriteButton";
+import { useRouter } from "next/router";
 
 // Styled container for the spotlight art piece
 const SpotlightWrapper = styled.section`
@@ -29,6 +29,7 @@ function getRandomArtPiece(pieces) {
 export default function Spotlight({ favorites, onToggleFavorite }) {
   const [artPiece, setArtPiece] = useState(null);
   const [loading, setLoading] = useState(true); // Added loading state for more control
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchArtPieces() {
@@ -52,21 +53,17 @@ export default function Spotlight({ favorites, onToggleFavorite }) {
   // While loading
   if (loading) return <p>Loading spotlight...</p>;
 
-  const isFavorite =
-    Array.isArray(favorites) && favorites.includes(artPiece.slug);
+  function handleClick() {
+    router.push(`/art/${artPiece.slug}`);
+  }
 
-  // Show selected random piece
   return (
-    <SpotlightWrapper>
+    <SpotlightWrapper onClick={handleClick} style={{ cursor: "pointer" }}>
       <h2> Spotlight Art Piece</h2>
       <Image src={artPiece.imageSource} alt={artPiece.name} />
       <p>
         <strong>By:</strong> {artPiece.artist}
       </p>
-      <FavoriteButton
-        isFavorite={isFavorite}
-        onToggle={() => onToggleFavorite(artPiece.slug)}
-      />
     </SpotlightWrapper>
   );
 }

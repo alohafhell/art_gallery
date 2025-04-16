@@ -1,22 +1,28 @@
-// components/Navigation.js
-
+// components/Navigation.jsx
 import Link from "next/link";
 import styled from "styled-components";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
-// Styled navigation bar
+// Styled nav wrapper
 const Nav = styled.nav`
-  background-color: #333;
+  background-color: #222;
   padding: 1rem;
   display: flex;
-  justify-content: center;
-  gap: 2rem;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000; // Keep it above other content, just in case
+  height: 60px;
 `;
 
-// ✅ This is where you're styling the Link directly!
-const StyledLink = styled(Link)`
-  color: white;
+// Styled link with active state styling
+const NavLink = styled.a`
+  color: ${(props) => (props.$active ? "#ffd700" : "#fff")};
+  font-weight: ${(props) => (props.$active ? "bold" : "normal")};
   text-decoration: none;
-  font-weight: bold;
+  font-size: 1.1rem;
 
   &:hover {
     text-decoration: underline;
@@ -24,10 +30,26 @@ const StyledLink = styled(Link)`
 `;
 
 export default function Navigation() {
+  const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true); // Now we can safely use router.pathname
+  }, []);
+
+  if (!mounted) return null; // Avoid rendering nav during SSR
+
   return (
-    <nav>
-      <Link href="/">Spotlight</Link> |<Link href="/gallery">Gallery</Link> |
-      <Link href="/favorites">Favorites</Link>
-    </nav>
+    <Nav>
+      <Link href="/" passHref>
+        <NavLink $active={router.pathname === "/"}>Spotlight</NavLink>
+      </Link>
+      <Link href="/gallery" passHref>
+        <NavLink $active={router.pathname === "/gallery"}>Art Pieces</NavLink>
+      </Link>
+      <Link href="/favorites" passHref>
+        <NavLink $active={router.pathname === "/favorites"}>Favorites</NavLink>
+      </Link>
+    </Nav>
   );
 }

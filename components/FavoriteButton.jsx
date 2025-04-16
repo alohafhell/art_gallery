@@ -6,17 +6,19 @@ export default function FavoriteButton({ isFavorite, onToggle }) {
     <button
       onClick={onToggle}
       style={{
-        padding: "10px",
-        cursor: "pointer",
-        background: "transparent",
-        border: "none", // Remove the border for a cleaner button
-        display: "inline-flex",
+        width: "40px",
+        height: "40px",
+        borderRadius: "50%", // 👈 Makes it circular
+        backgroundColor: "#fff", // 👈 White background
+        border: "1px solid #ccc", // 👈 Optional border for contrast
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // 👈 Soft shadow
+        display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        margin: "0", // Ensure no unwanted margin
+        padding: "0",
+        cursor: "pointer", //ve it a higher stacking context than the nav
       }}
     >
-      {/* Use the Lucide Heart or HeartOff icons based on the favorite state */}
       <Heart
         color={isFavorite ? "red" : "gray"} // Red when favorited, gray for unfilled
         fill={isFavorite ? "red" : "none"} // Fill with red if favorite, otherwise no fill

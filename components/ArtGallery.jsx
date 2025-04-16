@@ -1,13 +1,14 @@
-// components/ArtGallery.js
+// components/ArtGallery.jsx
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ArtPiecePreview from "./ArtPiecePreview";
 
 const GalleryWrapper = styled.section`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 2rem;
+  gap: 2rem;
 `;
 
 export default function ArtGallery({ favorites, onToggleFavorite }) {
@@ -36,8 +37,8 @@ export default function ArtGallery({ favorites, onToggleFavorite }) {
           imageSource={piece.imageSource}
           name={piece.name}
           artist={piece.artist}
-          isFavorite={favorites.includes(piece.slug)} // ✅ highlight favs
-          onToggleFavorite={() => onToggleFavorite(piece.slug)} // ✅ toggle fav
+          isFavorite={favorites.includes(piece.slug)}
+          onToggleFavorite={() => onToggleFavorite(piece.slug)}
         />
       ))}
     </GalleryWrapper>
