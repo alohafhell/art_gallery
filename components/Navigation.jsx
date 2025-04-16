@@ -42,7 +42,11 @@ export default function Navigation() {
   return (
     <Nav>
       <Link href="/" passHref>
-        <NavLink $active={router.pathname === "/"}>Spotlight</NavLink>
+        <NavLink
+          $active={router.pathname === "/" || router.pathname === "/spotlight"}
+        >
+          Spotlight
+        </NavLink>
       </Link>
       <Link href="/gallery" passHref>
         <NavLink $active={router.pathname === "/gallery"}>Art Pieces</NavLink>
