@@ -30,7 +30,7 @@ const NavLink = styled.a`
 `;
 
 export default function Navigation() {
-  const router = useRouter();
+  const router = useRouter(); //access to info about the current page
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -39,15 +39,26 @@ export default function Navigation() {
 
   if (!mounted) return null; // Avoid rendering nav during SSR
 
+  //router.pathname tells u what page u on
+
   return (
     <Nav>
       <Link href="/" passHref>
-        <NavLink $active={router.pathname === "/"}>Spotlight</NavLink>
+        {" "}
+        {/* Link to Spotlight page */}
+        <NavLink
+          $active={router.pathname === "/" || router.pathname === "/spotlight"}
+        >
+          Spotlight
+        </NavLink>
       </Link>
       <Link href="/gallery" passHref>
+        {" "}
+        {/* Link to Gallery page */}
         <NavLink $active={router.pathname === "/gallery"}>Art Pieces</NavLink>
       </Link>
       <Link href="/favorites" passHref>
+        {/* Link to Favorites page */}
         <NavLink $active={router.pathname === "/favorites"}>Favorites</NavLink>
       </Link>
     </Nav>

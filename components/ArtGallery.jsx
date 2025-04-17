@@ -12,7 +12,7 @@ const GalleryWrapper = styled.section`
 `;
 
 export default function ArtGallery({ favorites, onToggleFavorite }) {
-  const [artPieces, setArtPieces] = useState([]);
+  const [artPieces, setArtPieces] = useState([]); //will hold all the data fetched from the API
 
   useEffect(() => {
     async function fetchArtPieces() {
@@ -24,11 +24,13 @@ export default function ArtGallery({ favorites, onToggleFavorite }) {
         console.error("Failed to fetch art:", error);
       }
     }
+    //fetches from api, >to json, sets result into artP using data
 
     fetchArtPieces();
   }, []);
 
   return (
+    //rendering
     <GalleryWrapper>
       {artPieces.map((piece) => (
         <ArtPiecePreview
