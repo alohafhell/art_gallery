@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import FavoriteButton from "./FavoriteButton"; // ✅ added
 import Link from "next/link";
 
@@ -22,7 +22,8 @@ const Image = styled.img`
   border-radius: 4px;
 `;
 
-// ✅ Random selection function using MDN pattern
+// function picks a random art piece from the fetched array using math.random
+//It picks a random number between 0 and the number of art pieces array , and uses it to grab one item from the list
 function getRandomArtPiece(pieces) {
   const randomIndex = Math.floor(Math.random() * pieces.length);
   return pieces[randomIndex];
@@ -30,10 +31,12 @@ function getRandomArtPiece(pieces) {
 
 export default function Spotlight({ favorites, onToggleFavorite }) {
   const [artPiece, setArtPiece] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
+  const [loading, setLoading] = useState(true); //boolean state to indicate if the data is still loading from the API
+  // const router = useRouter();
 
   useEffect(() => {
+    //inside it makes  API call to fetch art data, and when the data is fetched,
+    // it picks a random art piece using getRandomArtPiece and updates the artP state
     async function fetchArtPieces() {
       try {
         const res = await fetch("https://example-apis.vercel.app/api/art");
@@ -43,14 +46,15 @@ export default function Spotlight({ favorites, onToggleFavorite }) {
         setLoading(false);
       } catch (error) {
         console.error("Failed to fetch art for spotlight:", error);
-        setLoading(false);
+        setLoading(false); //is called after data is loaded to show that data is ready to be shown
       }
     }
 
     fetchArtPieces();
   }, []);
 
-  if (loading) return <p>Loading spotlight...</p>;
+  if (loading) return <p>Loading spotlight...</p>; //if the data is still loading (loading is true),
+  // the component returns a message indicating that the spotlight is loading
 
   // function handleClick() {
   //   router.push({
@@ -61,7 +65,8 @@ export default function Spotlight({ favorites, onToggleFavorite }) {
 
   return (
     <SpotlightWrapper>
-      {/* ✅ Link to art details */}
+      {/* href in the Llnk is dynamically set to /art/${artPiece.slug}
+      which  leas to a page for that specific art p*/}
       <Link href={`/art/${artPiece.slug}`} passHref>
         <div style={{ cursor: "pointer" }}>
           <Image src={artPiece.imageSource} alt={artPiece.name} />
@@ -92,7 +97,8 @@ export default function Spotlight({ favorites, onToggleFavorite }) {
     </SpotlightWrapper>
   );
 }
-
+//sets default props for favorites,
+// so if no favorites are passed to the Spotlight component, it defaults to an empty array
 Spotlight.defaultProps = {
   favorites: [],
 };

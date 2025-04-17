@@ -1,4 +1,4 @@
-// pages/art/[slug].js
+// dynamic route
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import ArtPieceDetails from "../../components/ArtPieceDetails";
@@ -27,3 +27,8 @@ export default function ArtPiecePage() {
 
   return <ArtPieceDetails artPiece={artPiece} />;
 }
+//artPiece: where store the specific art data after fetching it
+
+//router Using Next.js's router to access URL data.
+
+//slug = router.query.slug: This pulls the slug from the URL

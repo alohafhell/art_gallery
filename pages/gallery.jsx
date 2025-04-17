@@ -13,3 +13,6 @@ export default function GalleryPage({ favorites, onToggleFavorite }) {
     </div>
   );
 }
+
+//props from appjs
+//defining the Gallery page component
